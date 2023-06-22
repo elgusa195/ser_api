@@ -178,7 +178,6 @@ app.listen(port, () => {
   console.log(port)
   console.log(host)
   console.log(token)
-  console.log(apiUrl)
   console.log(chatID)
   
 });
