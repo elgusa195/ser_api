@@ -35,12 +35,12 @@ app.use((req, res, next) => {
 /**
  * CHATBOT CONFIG
  */
-const bot = new TelegramBot(token, { polling: true });
-
 const token = process.env.TOKEN || TOKEN;
 const webhookURL = process.env.WH_URL || WH_URL;
 const apiUrl = `https://api.telegram.org/bot${token}/setWebhook`;
 const chatID = process.env.CHAT_ID || CHAT_ID;
+
+const bot = new TelegramBot(token, { polling: true });
 
 // WebHoook setting
 axios.post(apiUrl, { url: webhookURL })
