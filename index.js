@@ -179,7 +179,6 @@ app.listen(port, () => {
   console.log(port)
   console.log(host)
   console.log(token)
-  console.log(webhookURL)
   console.log(apiUrl)
   console.log(chatID)
   
