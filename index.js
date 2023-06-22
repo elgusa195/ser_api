@@ -1,6 +1,7 @@
 import express from 'express';
 import TelegramBot from 'node-telegram-bot-api';
-import {TOKEN, ORIGIN_URL, CHAT_ID} from './config.js'
+import axios from 'axios';
+import {TOKEN, WH_URL, ORIGIN_URL, CHAT_ID} from './config.js'
 
 import dotenv from 'dotenv';
 dotenv.config({path: 'variables.env'});
@@ -34,11 +35,24 @@ app.use((req, res, next) => {
 /**
  * CHATBOT CONFIG
  */
+const bot = new TelegramBot(token, { polling: true });
 
 const token = process.env.TOKEN || TOKEN;
+const webhookURL = process.env.WH_URL || WH_URL;
+const apiUrl = `https://api.telegram.org/bot${token}/setWebhook`;
 const chatID = process.env.CHAT_ID || CHAT_ID;
 
-const bot = new TelegramBot(token, { polling: true });
+// WebHoook setting
+axios.post(apiUrl, { url: webhookURL })
+    .then(response => {
+    console.log('URL del webhook actualizada correctamente');
+    })
+    .catch(error => {
+    console.error('Error al actualizar la URL del webhook:', error.message);
+    });
+
+bot.sendMessage(chatID, "We're Online Baby! Another one ;)")
+
 
 const generateRandomCommand = () => {
   const characters = 'abcdefghijklmnopqrstuvwxyz0123456789'; // Caracteres permitidos en el comando
@@ -178,6 +192,8 @@ app.listen(port, () => {
   console.log(port)
   console.log(host)
   console.log(token)
+  console.log(webhookURL)
+  console.log(apiUrl)
   console.log(chatID)
   
 });
